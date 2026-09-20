@@ -22,7 +22,7 @@ from pathlib import Path
 import numpy as np
 import pandas as pd
 
-TRAIN_START = "2013-11-01"
+TRAIN_START = "2013-11-01 00:00:00+01:00"
 TRAIN_END = "2013-12-08 23:50:00+01:00"
 VAL_START = "2013-12-09 00:00:00+01:00"
 VAL_END = "2013-12-15 23:50:00+01:00"
