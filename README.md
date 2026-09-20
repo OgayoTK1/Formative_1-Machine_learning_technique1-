@@ -4,11 +4,11 @@ Comparative analysis of three sequential models (LSTM, Temporal Convolutional Ne
 
 **Research question:** How do different sequential models compare for one-step-ahead mobile network traffic forecasting, and how does their performance vary across geographical areas with different traffic characteristics?
 
-**Headline finding:** Model ranking is not stable across areas, and the instability tracks each area's measured volatility. The LSTM wins outright on the steadiest of the three evaluated squares, the TCN wins on the square with the sharpest weekday/weekend split, and on the most volatile square, simple persistence beats all three sequential models on MAE and MAPE. Full results in Section 6 of the report.
+**Headline finding:** Model ranking is not stable across areas, and the instability tracks each area's measured volatility. LSTM achieved the strongest results across all three metrics on the steadiest of the three evaluated squares, while TCN achieved the strongest results on the square with the sharpest weekday/weekend split. On the most volatile square, simple persistence achieved the lowest MAE and MAPE. Full results in Section 6 of the report.
 
 ## 1. Project Overview
 
-This project investigates whether sequential deep learning architectures with genuinely different mechanisms (recurrence, dilated convolution, self-attention) forecast mobile Internet traffic differently depending on the traffic character of the geographical area, rather than assuming one architecture is universally best. Three squares from the Milan dataset were selected specifically because they differ in total volume, volatility, and weekday/weekend behavior, and each of the three models was tuned once (on the highest-traffic square) and evaluated on all three.
+This project investigates whether sequential deep learning architectures with genuinely different mechanisms (recurrence, dilated convolution, self-attention) forecast mobile Internet traffic differently depending on the traffic character of the geographical area, rather than assuming one architecture is universally best. Three squares from the Milan dataset were selected specifically because they differ in total volume, volatility, and weekday/weekend behavior, and the three models were tuned iteratively on the highest-traffic square before the resulting configurations were evaluated on all three.
 
 ## 2. Dataset Source
 
@@ -41,7 +41,7 @@ This project was built and run in Google Colab, with Google Drive as persistent 
 2. Mount Google Drive:
    ```python
    from google.colab import drive
-   drive.mount('/content/drive')
+drive.mount('/content/drive')
    ```
 3. Clone or copy this repository's contents into `/content/drive/MyDrive/mobile-network-forecasting/`.
 
