@@ -218,5 +218,4 @@ On square 5161 the pattern is less orderly. The largest error, an underpredictio
 
 [6] X. Wang, Z. Zhou, F. Xiao, K. Xing, Z. Yang, Y. Liu, and C. Peng, "Spatio-Temporal Analysis and Prediction of Cellular Traffic in Metropolis," IEEE Trans. Mob. Comput., vol. 18, no. 9, pp. 2190-2202, 2019.
 
-GitHub repository: to be added once pushed.
-Demo video: to be added once recorded.
+
