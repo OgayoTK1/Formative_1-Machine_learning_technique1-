@@ -1,0 +1,12 @@
+# Pinned to the versions actually used during this project, captured from
+# the Colab runtime at project start (configs/environment_snapshot.json).
+numpy==2.1.3
+pandas==2.2.3
+scikit-learn==1.6.1
+torch==2.11.0
+matplotlib==3.10.0
+statsmodels==0.15.0
+requests==2.32.4
+pyarrow==23.0.1
+psutil>=5.9
+PyYAML>=6.0

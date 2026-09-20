@@ -1,0 +1,77 @@
+# configs/config.yaml
+#
+# Central configuration for the mobile network traffic forecasting project.
+# Split boundaries, seed, and final model architectures are declared here
+# rather than hardcoded across scripts, so a single source of truth exists
+# for every reproducibility-relevant setting.
+
+project:
+  seed: 42
+  target_squares: [5161, 5059, 5259]
+  # 5161, 5059, 5259 are the three highest-total-traffic squares over the
+  # full observation period, computed from data (see
+  # data/processed/total_traffic_per_square.parquet), not assumed.
+
+paths:
+  raw_dir: data/raw
+  interim_dir: data/interim
+  processed_dir: data/processed
+  results_tables_dir: results/tables
+  results_predictions_dir: results/predictions
+  figures_dir: figures
+  experiment_log: experiments/experiment_log.csv
+
+split:
+  # Chronological, no shuffling. 2013-12-23 onward is deliberately excluded
+  # from every split: it postdates the required test period, and using it
+  # for training would break strict chronological ordering.
+  train_start: "2013-11-01 00:00:00+01:00"
+  train_end: "2013-12-08 23:50:00+01:00"
+  val_start: "2013-12-09 00:00:00+01:00"
+  val_end: "2013-12-15 23:50:00+01:00"
+  test_start: "2013-12-16 00:00:00+01:00"
+  test_end: "2013-12-22 23:50:00+01:00"
+
+evaluation:
+  seasonal_lag: 144          # 24h at 10-minute resolution, confirmed via ACF local-peak test
+  mape_zero_threshold: 10.0  # exclude |actual| < threshold from MAPE to avoid division blowup
+
+# Final architectures, selected via staged tuning on square 5161
+# (see experiments/experiment_log.csv for the full experiment history
+# and the reasoning behind each choice).
+models:
+  lstm:
+    sequence_length: 24
+    hidden_size: 64
+    num_layers: 1
+    dropout: 0.0
+    learning_rate: 0.003
+    batch_size: 64
+    optimizer: Adam
+    max_epochs: 50
+    early_stopping_patience: 5
+
+  tcn:
+    sequence_length: 144
+    channels: [32, 32, 32, 32, 32, 32]
+    kernel_size: 3
+    dilations: [1, 2, 4, 8, 16, 32]
+    dropout: 0.0
+    learning_rate: 0.001
+    batch_size: 64
+    optimizer: Adam
+    max_epochs: 50
+    early_stopping_patience: 5
+
+  transformer:
+    sequence_length: 144
+    d_model: 64
+    nhead: 2
+    num_layers: 2
+    dim_feedforward: 64
+    dropout: 0.0
+    learning_rate: 0.001
+    batch_size: 64
+    optimizer: Adam
+    max_epochs: 50
+    early_stopping_patience: 5
